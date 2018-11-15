@@ -4,7 +4,8 @@
 
   a simple implementation of a binary search tree
 
-
+    Name: Ricardo Guzman
+    UtEID: rg43989
 */
 
 #ifndef BST_312_H
@@ -26,7 +27,6 @@ public:
     BST_312(const BST_312 & src);
 
     ~BST_312();
-
 /****************************
 makeEmpty
 
