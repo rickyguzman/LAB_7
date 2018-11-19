@@ -333,7 +333,8 @@ int BST_312 <ItemType>::countNodes(TreeNode* t) const
     } else if(t->left == NULL && t->right == NULL){
         return 1;
     } else{
-        return 1 + (countNodes(t->right)) + (countNodes(t->left));
+        return 1 + (countNodes(t->right)) + (countNodes(t->left)); // +1 because very first node never gets counted
+                                                                   // as a node
     }
 
 }
@@ -343,14 +344,14 @@ template<class ItemType>
 int BST_312 <ItemType>::countNodes()
 {
     //YOUR CODE GOES HERE
-    countNodes(root);
+    return countNodes(root);
 }
 
 template<class ItemType>
 void BST_312 <ItemType>::preOrderTraversal(TreeNode* t,vector<ItemType>& result) const
 {
     //YOUR CODE GOES HERE
-    if(t == NULL){
+    if(t == NULL){ // base case
         return;
     }
     result.push_back(t->data);
@@ -381,6 +382,18 @@ template<class ItemType>
 void BST_312 <ItemType>::inOrderTraversal(TreeNode* t,vector<ItemType>& result) const
 {
     //YOUR CODE GOES HERE
+    if(t == NULL){
+        return; // base case
+    }
+    if(t->left != NULL){
+        inOrderTraversal(t->left, result);
+    }
+    result.push_back(t->data);
+    if(t->right != NULL){
+        inOrderTraversal(t->right, result);
+
+    }
+    return;
 
 
 }
@@ -399,12 +412,29 @@ void BST_312 <ItemType>::postOrderTraversal(TreeNode* t,vector<ItemType>& result
 {
 
     //YOUR CODE GOES HERE
+    if(t == NULL){// base case
+        return;
+    }
+    if(t->left != NULL){
+        postOrderTraversal(t->left, result);
+    }
+    if(t->right != NULL){
+        postOrderTraversal(t->right, result);
+
+    }
+    result.push_back(t->data);
+    return;
+
+
 }
 
 template<class ItemType>
 vector<ItemType> BST_312 <ItemType>::postOrderTraversal()
 {
     //YOUR CODE GOES HERE
+    vector<ItemType> result;
+    postOrderTraversal(root, result);
+    return result;
 }
 
 template<class ItemType>
@@ -412,7 +442,15 @@ bool BST_312 <ItemType>::isItemInTree(const ItemType& item)
 {
 
   //YOUR CODE GOES HERE
+  vector<ItemType> count = preOrderTraversal();
+  for(int i =0;i<count.size(); i++){
+      if(count[i] == item){
+          return true;
+      }
+  }
+  return false;
 
 }
+
 #endif
 
